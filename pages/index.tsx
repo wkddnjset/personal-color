@@ -6,6 +6,8 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import UploadButtonIcon from 'components/icons/System/UploadButton';
+import ArrowLeftIcon from 'components/icons/System/ArrowLeft';
+import ArrowRightIcon from 'components/icons/System/ArrowRight';
 import { Button } from '@chakra-ui/button';
 
 const DATA = [
@@ -62,6 +64,25 @@ const DATA = [
   '#404099',
   '#533094',
 ];
+
+function NextArrow(props: any) {
+  const { style, onClick } = props;
+  return (
+    <ArrowBtn style={{ ...style, display: 'block', right: 10 }} onClick={onClick}>
+      <ArrowRightIcon />
+    </ArrowBtn>
+  );
+}
+
+function PrevArrow(props: any) {
+  const { style, onClick } = props;
+  return (
+    <ArrowBtn style={{ ...style, display: 'block', left: 10 }} onClick={onClick}>
+      <ArrowLeftIcon />
+    </ArrowBtn>
+  );
+}
+
 export default function Home() {
   const [img, setImg] = useState<string>('');
   const uploadImage = useRef<any>(null);
@@ -71,6 +92,8 @@ export default function Home() {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
   };
 
   const handleUploadImage = (e: any) => {
@@ -165,4 +188,18 @@ const PreviewBox = styled.div`
 `;
 const Preview = styled.img<{ src: string }>`
   width: 30%auto;
+  max-height: 80vh;
+`;
+
+const ArrowBtn = styled.div`
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  z-index: 5;
+  width: 40px;
+  height: 40px;
+  > svg {
+    width: 40px;
+    height: 40px;
+  }
 `;
